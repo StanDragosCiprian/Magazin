@@ -7,16 +7,17 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { ClothesService } from './clothes.service';
-import { CreateClotheDto } from './dto/create-clothe.dto';
-import { UpdateClotheDto } from './dto/update-clothe.dto';
+import { ClothesService } from '../use-cases/clothes/clothes.service';
+import { CreateClotheDto } from '../core/dto/create-clothe.dto';
+import { UpdateClotheDto } from '../core/dto/update-clothe.dto';
+import { clothes } from 'src/core/entities/clothe.entity';
 
 @Controller('clothes')
 export class ClothesController {
-  constructor(private readonly clothesService: ClothesService) {}
+  constructor(private clothesService: ClothesService) {}
 
   @Post()
-  create(@Body() createClotheDto: CreateClotheDto) {
+  async create(@Body() createClotheDto: CreateClotheDto): Promise<clothes> {
     return this.clothesService.create(createClotheDto);
   }
 
