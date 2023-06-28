@@ -1,5 +1,5 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { CreateTvDto } from 'src/core/dto/create-tv.dto';
+import { CreateTvDto } from 'src/core/dto/tv.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { tv } from 'src/core/entities/tv.entity';

@@ -9,7 +9,7 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { ClothesService } from '../use-cases/clothes/clothes.service';
-import { CreateClotheDto } from '../core/dto/create-clothe.dto';
+import { CreateClotheDto } from '../core/dto/clothe.dto';
 import { clothes } from 'src/core/entities/clothe.entity';
 
 @Controller('clothes')

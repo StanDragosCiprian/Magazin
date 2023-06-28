@@ -1,5 +1,5 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { CreateClotheDto } from '../../core/dto/create-clothe.dto';
+import { CreateClotheDto } from '../../core/dto/clothe.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { clothes } from 'src/core/entities/clothe.entity';
