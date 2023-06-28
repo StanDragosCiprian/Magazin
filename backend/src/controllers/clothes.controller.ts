@@ -6,10 +6,10 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ClothesService } from '../use-cases/clothes/clothes.service';
 import { CreateClotheDto } from '../core/dto/create-clothe.dto';
-import { UpdateClotheDto } from '../core/dto/update-clothe.dto';
 import { clothes } from 'src/core/entities/clothe.entity';
 
 @Controller('clothes')
@@ -21,23 +21,23 @@ export class ClothesController {
     return this.clothesService.create(createClotheDto);
   }
 
-  @Get()
-  findAll() {
-    return this.clothesService.findAll();
+  @Get('/getAll')
+  async getAll(): Promise<clothes[]> {
+    return await this.clothesService.getAll();
   }
-
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.clothesService.findOne(+id);
+  async getOneById(@Param('id', ParseIntPipe) id: number): Promise<clothes> {
+    return await this.clothesService.getOneById(id);
   }
-
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateClotheDto: UpdateClotheDto) {
-    return this.clothesService.update(+id, updateClotheDto);
+  async updateClothe(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() newClotheDto: CreateClotheDto,
+  ): Promise<clothes> {
+    return await this.clothesService.update(id, newClotheDto);
   }
-
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.clothesService.remove(+id);
+  async delete(@Param('id', ParseIntPipe) id: number): Promise<number> {
+    return await this.clothesService.delete(id);
   }
 }
