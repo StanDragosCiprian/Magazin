@@ -1,6 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { CreateClotheDto } from '../../core/dto/create-clothe.dto';
-import { UpdateClotheDto } from '../../core/dto/update-clothe.dto';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { CreateClotheDto } from '../../core/dto/clothe.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { clothes } from 'src/core/entities/clothe.entity';
@@ -13,20 +12,46 @@ export class ClothesService {
     const createClothe = this.clotheRepository.create(createClotheDto);
     return this.clotheRepository.save(createClothe);
   }
-
-  findAll() {
-    return `This action returns all clothes`;
+  async getAll(): Promise<clothes[]> {
+    return await this.clotheRepository.find();
   }
-
-  findOne(id: number) {
-    return `This action returns a #${id} clothe`;
+  async getOneById(id: number): Promise<clothes> {
+    try {
+      return await this.clotheRepository.findOneOrFail({
+        where: { clothe_id: id },
+      });
+    } catch (err) {
+      console.log('Get one clothe by id error: ', err.message ?? err);
+      throw new HttpException(
+        `Product with id ${id} not found.`,
+        HttpStatus.NOT_FOUND,
+      );
+    }
   }
+  async update(id: number, newClothe: CreateClotheDto): Promise<clothes> {
+    let foundClothe = await this.clotheRepository.findOneBy({ clothe_id: id });
 
-  update(id: number, updateClotheDto: UpdateClotheDto) {
-    return `This action updates a #${id} clothe`;
+    if (!foundClothe) {
+      throw new HttpException(
+        `Product with id ${id} not found.`,
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    foundClothe = { ...foundClothe, ...newClothe };
+    return await this.clotheRepository.save(foundClothe);
   }
+  async delete(id: number): Promise<number> {
+    const foundClothe = await this.clotheRepository.findOneBy({
+      clothe_id: id,
+    });
 
-  remove(id: number) {
-    return `This action removes a #${id} clothe`;
+    if (!foundClothe) {
+      throw new HttpException(
+        `Product with id ${id} not found.`,
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    await this.clotheRepository.delete(id);
+    return foundClothe.clothe_id;
   }
 }
