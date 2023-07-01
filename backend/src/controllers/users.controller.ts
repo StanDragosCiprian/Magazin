@@ -7,16 +7,21 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from 'src/use-cases/users/users.service';
 import { CreateUsersDto } from 'src/core/dto/users.dto';
 import { Users } from 'src/core/entities/users.entity';
+import { CookieGuard } from 'src/auth/role.guard';
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
   @Post('/send')
-  async create(@Body() createUserDto: CreateUsersDto): Promise<Users> {
-    return this.usersService.create(createUserDto);
+  @UseGuards(CookieGuard)
+  async create(@Body() createUserDto: CreateUsersDto): Promise<number> {
+    const user = await this.usersService.create(createUserDto);
+    const id = user.users_id;
+    return id;
   }
   @Get('/getAll')
   async getAll(): Promise<Users[]> {

@@ -7,15 +7,14 @@ import {
   Param,
   Delete,
   ParseIntPipe,
-  SetMetadata,
-  UseGuards,
+  // SetMetadata,
+  // UseGuards,
 } from '@nestjs/common';
 import { TvService } from 'src/use-cases/tv/tv.service';
 import { CreateTvDto } from 'src/core/dto/tv.dto';
 import { tv } from 'src/core/entities/tv.entity';
 import { Roles } from 'src/auth/roles.decorator';
 import { Role } from 'src/auth/role.enum';
-import { RolesGuard } from 'src/auth/role.guard';
 
 @Controller('tv')
 export class TvController {
@@ -23,7 +22,7 @@ export class TvController {
 
   @Post('/send')
   @Roles(Role.Admin)
-  @UseGuards(RolesGuard)
+  //@UseGuards(RolesGuard)
   async create(@Body() createTvDto: CreateTvDto): Promise<tv> {
     return this.tvService.create(createTvDto);
   }
