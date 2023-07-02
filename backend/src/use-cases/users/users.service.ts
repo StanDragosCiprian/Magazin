@@ -15,19 +15,30 @@ export class UsersService {
   async getAll(): Promise<Users[]> {
     return await this.userRepository.find();
   }
-  async getOneById(id: number): Promise<Users> {
+  async getOneByCondition(condition: object): Promise<number> {
     try {
-      return await this.userRepository.findOneOrFail({
-        where: { users_id: id },
+      const userId = await this.userRepository.findOneOrFail({
+        where: condition,
       });
+      return userId.users_id;
     } catch (err) {
       console.log('Get one user by id error: ', err.message ?? err);
-      throw new HttpException(
-        `User with id ${id} not found.`,
-        HttpStatus.NOT_FOUND,
-      );
+      throw new HttpException(`User not found.`, HttpStatus.NOT_FOUND);
     }
   }
+  // async getOneById(id: number): Promise<Users> {
+  //   try {
+  //     return await this.userRepository.findOneOrFail({
+  //       where: { users_id: id },
+  //     });
+  //   } catch (err) {
+  //     console.log('Get one user by id error: ', err.message ?? err);
+  //     throw new HttpException(
+  //       `User with id ${id} not found.`,
+  //       HttpStatus.NOT_FOUND,
+  //     );
+  //   }
+  // }
   async update(id: number, newUser: CreateUsersDto): Promise<Users> {
     let foundUser = await this.userRepository.findOneBy({ users_id: id });
 

@@ -1,32 +1,32 @@
 import { IUser } from "../core/entity/IUser";
 import Cookies from "js-cookie";
-document.cookie = 'id=some-value';
+
 export const handleNewUser = async (userInput: IUser): Promise<void> => {
- 
-  const response = await fetch("http://localhost:3000/users/send", {
+  const response = await fetch("http://localhost:3000/users/sign", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    credentials: 'include',
+    credentials: "include",
     body: JSON.stringify(userInput),
   });
   const data = await response.json();
   console.log(data);
-  // const id = JSON.stringify(data);
-  // if (id !== '{"statusCode":500,"message":"Internal server error"}') {
-  //   Cookies.set("id", id);
-  //   console.log(Cookies.get());
-  // } else {
-  //   console.log("internal Problem");
-  // }
+  Cookies.set("id", data);
+  window.location.href="/";
 };
-export const handleGetUser = async () => {
-  await fetch("http://localhost:3000/users/getAll", {
-    method: "GET",
+export const handleLog = async (userInput: IUser) => {
+  await fetch("http://localhost:3000/users/log", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userInput),
   })
     .then((resp) => resp.json())
     .then((data) => {
       console.log(data);
+      Cookies.set("id", data);
+      window.location.href="/";
     });
 };

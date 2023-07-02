@@ -21,13 +21,11 @@ export class CookieGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const cookieValue = request.cookies['id'];
-    const request2 = context.switchToHttp().getRequest();
-    const userId = request.params.id;
     console.log(cookieValue);
     const user = this.getOneById(cookieValue);
-
+    const role = (await user).role;
     console.log((await user).email);
-    if (cookieValue === 'some-value') {
+    if (role === 'user') {
       return true;
     } else {
       return false;

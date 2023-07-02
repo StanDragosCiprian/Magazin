@@ -1,53 +1,25 @@
-import { useState } from "react";
-import IconButton from "@mui/material/IconButton";
+import { IconComponents } from "./Icon";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-export const UserIcon = () => {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleRedirect = (path: string) => {
-    window.location.href = path;
-    setAnchorEl(null);
-  };
-
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import LogoutIcon from "@mui/icons-material/Logout";
+import StoreIcon from "@mui/icons-material/Store";
+export const UserIcons = ({ author }: { author: string }) => {
   return (
     <>
-      <IconButton
-        size="large"
-        aria-label="account of current user"
-        aria-controls="menu-appbar"
-        aria-haspopup="true"
-        onClick={handleMenu}
-        color="inherit"
-      >
-        <AccountCircle sx={{ color: "black" }} />
-      </IconButton>
-      <Menu
-        id="menu-appbar"
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        keepMounted
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        open={Boolean(anchorEl)}
-        onClose={handleRedirect}
-      >
-        <MenuItem onClick={() => handleRedirect("/logIn")}>Log In</MenuItem>
+      <IconComponents author={author}>
+        <StoreIcon sx={{ color: "black" }} />
+        <StoreIcon sx={{ color: "black" }} />
+      </IconComponents>
 
-        <MenuItem onClick={() => handleRedirect("/signIn")}>Sign In</MenuItem>
-      </Menu>
+      <IconComponents author={author}>
+        <AccountCircle sx={{ color: "black" }} />
+        <ShoppingCartIcon sx={{ color: "black" }} />
+      </IconComponents>
+
+      <IconComponents author={author}>
+        <LogoutIcon sx={{ color: "black" }} />
+        <LogoutIcon sx={{ color: "black" }} />
+      </IconComponents>
     </>
   );
 };
