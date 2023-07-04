@@ -6,38 +6,47 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { ClothesService } from '../use-cases/clothes/clothes.service';
-import { CreateClotheDto } from '../core/dto/create-clothe.dto';
-import { UpdateClotheDto } from '../core/dto/update-clothe.dto';
+import { CreateClotheDto } from '../core/dto/clothe.dto';
 import { clothes } from 'src/core/entities/clothe.entity';
-
+import { CookieGuard } from 'src/auth/role.guard';
+import { Roles } from 'src/auth/roles.decorator';
+import { Role } from 'src/auth/role.enum';
 @Controller('clothes')
 export class ClothesController {
   constructor(private clothesService: ClothesService) {}
 
   @Post()
+  @Roles(Role.Admin)
+  @UseGuards(CookieGuard)
   async create(@Body() createClotheDto: CreateClotheDto): Promise<clothes> {
     return this.clothesService.create(createClotheDto);
   }
 
-  @Get()
-  findAll() {
-    return this.clothesService.findAll();
+  @Get('/getAll')
+  async getAll(): Promise<clothes[]> {
+    return await this.clothesService.getAll();
   }
-
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.clothesService.findOne(+id);
+  async getOneById(@Param('id') id: number): Promise<clothes> {
+    return await this.clothesService.getOneById(id);
   }
-
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateClotheDto: UpdateClotheDto) {
-    return this.clothesService.update(+id, updateClotheDto);
+  @Roles(Role.Admin)
+  @UseGuards(CookieGuard)
+  async updateClothe(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() newClotheDto: CreateClotheDto,
+  ): Promise<clothes> {
+    return await this.clothesService.update(id, newClotheDto);
   }
-
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.clothesService.remove(+id);
+  @Roles(Role.Admin)
+  @UseGuards(CookieGuard)
+  async delete(@Param('id', ParseIntPipe) id: number): Promise<number> {
+    return await this.clothesService.delete(id);
   }
 }

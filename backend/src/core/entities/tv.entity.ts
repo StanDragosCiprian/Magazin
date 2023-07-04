@@ -1,9 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
-export class clothes {
+export class tv {
   @PrimaryGeneratedColumn()
-  clothe_id: number;
+  tv_id: number;
 
   @Column()
   name: string;
@@ -18,14 +18,11 @@ export class clothes {
   desctiption: string;
 
   @Column()
-  color: string;
-
-  @Column()
-  size: number;
-
-  @Column()
-  style: string;
-
-  @Column()
   image: string;
+
+  @Column()
+  diameter: number;
+
+  @Column()
+  rezolution: string;
 }
