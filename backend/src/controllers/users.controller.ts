@@ -38,11 +38,21 @@ export class UsersController {
     const passwordSave = await this.usersService.getOneByCondition({
       password: password,
     });
+    const rolee = await this.usersService.getMoreByCondition({
+      users_id: emailSave,
+    });
+    console.log(rolee.role);
     if (emailSave === passwordSave) {
-      return emailSave;
+      if (rolee.role === 'admin') {
+        return 5648645.3657;
+      } else {
+        return emailSave;
+      }
     }
   }
   @Get(':id')
+  @Roles(Role.Admin)
+  @UseGuards(CookieGuard)
   async getOneById(@Param('id', ParseIntPipe) id: number): Promise<number> {
     return await this.usersService.getOneByCondition({ user_id: id });
   }

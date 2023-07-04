@@ -1,5 +1,5 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
-import { Observable } from 'rxjs';
+import { Reflector } from '@nestjs/core';
 import { Repository } from 'typeorm';
 import { Users } from 'src/core/entities/users.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -7,11 +7,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class CookieGuard implements CanActivate {
   constructor(
     @InjectRepository(Users)
-    private readonly userRepository: Repository<Users>,
+    private readonly usersRepository: Repository<Users>,
+    private reflector: Reflector,
   ) {}
   async getOneById(id: number): Promise<Users> {
     try {
-      return await this.userRepository.findOneOrFail({
+      return await this.usersRepository.findOneOrFail({
         where: { users_id: id },
       });
     } catch (err) {
@@ -25,7 +26,9 @@ export class CookieGuard implements CanActivate {
     const user = this.getOneById(cookieValue);
     const role = (await user).role;
     console.log((await user).email);
-    if (role === 'user') {
+    const roles = this.reflector.get<string[]>('roles', context.getHandler());
+    console.log(roles[0]);
+    if (role === roles[0]) {
       return true;
     } else {
       return false;

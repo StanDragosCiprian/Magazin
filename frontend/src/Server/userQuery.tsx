@@ -7,15 +7,17 @@ export const handleNewUser = async (userInput: IUser): Promise<void> => {
     headers: {
       "Content-Type": "application/json",
     },
-    credentials: "include",
+    //credentials: "include",
     body: JSON.stringify(userInput),
   });
   const data = await response.json();
   console.log(data);
   Cookies.set("id", data);
-  window.location.href="/";
+  window.location.href = "/";
 };
 export const handleLog = async (userInput: IUser) => {
+  //const userData = { email: userInput.email, password: userInput.password };
+  console.log(userInput);
   await fetch("http://localhost:3000/users/log", {
     method: "POST",
     headers: {
@@ -27,6 +29,10 @@ export const handleLog = async (userInput: IUser) => {
     .then((data) => {
       console.log(data);
       Cookies.set("id", data);
-      window.location.href="/";
+      if (data === Number("5648645.3657")) {
+        window.location.href = "/sad";
+      } else {
+        window.location.href = "/";
+      }
     });
 };
