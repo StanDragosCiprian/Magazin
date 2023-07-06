@@ -44,8 +44,8 @@ export class ClothesController {
     return await this.clothesService.update(id, newClotheDto);
   }
   @Delete(':id')
-  @Roles(Role.Admin)
-  @UseGuards(CookieGuard)
+  // @Roles(Role.Admin)
+  // @UseGuards(CookieGuard)
   async delete(@Param('id', ParseIntPipe) id: number): Promise<number> {
     return await this.clothesService.delete(id);
   }

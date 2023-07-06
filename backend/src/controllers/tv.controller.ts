@@ -43,9 +43,9 @@ export class TvController {
     return await this.tvService.update(id, newTvDto);
   }
   @Delete(':id')
-  @Roles(Role.Admin)
-  @UseGuards(CookieGuard)
-  async delete(@Param('id', ParseIntPipe) id: number): Promise<number> {
+  // @Roles(Role.Admin)
+  // @UseGuards(CookieGuard)
+  async delete(@Param('id') id: number): Promise<number> {
     return await this.tvService.delete(id);
   }
 }

@@ -25,6 +25,18 @@ export const getTv = async (): Promise<ITv[]> => {
   return data;
 
 };
+export const deleteTv = async (id:string): Promise<void> => {
+  const response = await fetch(`http://localhost:3000/tv/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+
+  });
+  const data = await response.json();
+  console.log(data);
+  //window.location.href = "/";
+};
 export const getOneTv = async (tv: string): Promise<ITv> => {
   
   let response = await fetch(

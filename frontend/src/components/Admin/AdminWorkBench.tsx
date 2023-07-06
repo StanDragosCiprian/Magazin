@@ -1,6 +1,11 @@
 import { MouseMenu } from "./MouseMenu";
-import { getClothes, getOneClothes, handleNewClothes } from "../../Server/clothesQuery";
-import { getOneTv, getTv, handleNewTv, updateTv } from "../../Server/tvQuery";
+import {
+  deleteClothes,
+  getClothes,
+  getOneClothes,
+  handleNewClothes,
+} from "../../Server/clothesQuery";
+import { deleteTv, getOneTv, getTv, handleNewTv, updateTv } from "../../Server/tvQuery";
 import { ProductTable } from "./ProductTable";
 import { useState, useEffect } from "react";
 import { FormComponent } from "../FormComponent";
@@ -29,6 +34,7 @@ export const AdminWorkBench = () => {
           productKey={clothesProductKey}
           setUpdate={setUpdate}
           getProductName={getOneClothes}
+          deleteFromDatabase={deleteClothes}
         />
       ) : (
         <FormCard>
@@ -50,6 +56,8 @@ export const AdminWorkBench = () => {
           productKey={tvProductKey}
           setUpdate={setUpdate}
           getProductName={getOneTv}
+          deleteFromDatabase={deleteTv}
+
         />
       ) : (
         <FormCard>
@@ -68,9 +76,7 @@ export const AdminWorkBench = () => {
         <FormComponent
           userInputProps={clothesUserInputProps as Array<keyof IClothes>}
           buttonName={"Insert" as string}
-          SendToServer={
-            handleNewClothes as (update: IClothes) => Promise<void>
-          }
+          SendToServer={handleNewClothes as (update: IClothes) => Promise<void>}
           nameToUpdate={update}
           productName={productAll}
         />
@@ -79,9 +85,7 @@ export const AdminWorkBench = () => {
         <FormComponent
           userInputProps={tvUserInputProps as Array<keyof ITv>}
           buttonName={"Insert" as string}
-          SendToServer={
-            handleNewTv as (update: ITv) => Promise<void>
-          }
+          SendToServer={handleNewTv as (update: ITv) => Promise<void>}
           productName={productAll}
           nameToUpdate={update}
         />

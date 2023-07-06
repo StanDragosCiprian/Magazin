@@ -14,7 +14,18 @@ export const handleNewClothes = async (clothesInput: IClothes): Promise<void> =>
   console.log(data);
   window.location.href = "/";
 };
+export const deleteClothes = async (id:string): Promise<void> => {
+  const response = await fetch(`http://localhost:3000/clothes/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
 
+  });
+  const data = await response.json();
+  console.log(data);
+  //window.location.href = "/";
+};
 export const getClothes = async (): Promise<IClothes[]> => {
   let response = await fetch("http://localhost:3000/clothes/getAll", {
     method: "GET",

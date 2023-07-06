@@ -21,6 +21,7 @@ interface IProduct {
   setUpdate: React.Dispatch<React.SetStateAction<string>>;
   setProductAll: React.Dispatch<React.SetStateAction<any>>;
   getProductName: (clothesName: string) => Promise<any>;
+  deleteFromDatabase: (id: string) => Promise<any>;
 }
 
 export const ProductTable: React.FC<IProduct> = ({
@@ -29,6 +30,8 @@ export const ProductTable: React.FC<IProduct> = ({
   setUpdate,
   setProductAll,
   getProductName,
+  deleteFromDatabase,
+
 }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -100,8 +103,9 @@ export const ProductTable: React.FC<IProduct> = ({
                             edge="start"
                             color="inherit"
                             aria-label="menu"
-                            id={rowData["id"]}
+                            id={rowData["product_id"]}
                             sx={{ mr: 2 }}
+                            onClick={() => deleteFromDatabase(rowData["product_id"])}
                           >
                             <DeleteForeverIcon />
                           </IconButton>
