@@ -16,7 +16,7 @@ export class TvService {
   async getOneById(id: number): Promise<tv> {
     try {
       return await this.tvRepository.findOneOrFail({
-        where: { tv_id: id },
+        where: { product_id: id },
       });
     } catch (err) {
       console.log('Get one tv by id error: ', err.message ?? err);
@@ -26,12 +26,12 @@ export class TvService {
       );
     }
   }
-  async update(name: string, newTv: CreateTvDto): Promise<tv> {
-    let foundTv = await this.tvRepository.findOneBy({ name: name });
+  async update(id: number, newTv: CreateTvDto): Promise<tv> {
+    let foundTv = await this.tvRepository.findOneBy({ product_id: id });
 
     if (!foundTv) {
       throw new HttpException(
-        `Product with id ${name} not found.`,
+        `Product with id ${id} not found.`,
         HttpStatus.NOT_FOUND,
       );
     }
@@ -39,7 +39,7 @@ export class TvService {
     return await this.tvRepository.save(foundTv);
   }
   async delete(id: number): Promise<number> {
-    const foundTv = await this.tvRepository.findOneBy({ tv_id: id });
+    const foundTv = await this.tvRepository.findOneBy({ product_id: id });
 
     if (!foundTv) {
       throw new HttpException(
@@ -48,6 +48,6 @@ export class TvService {
       );
     }
     await this.tvRepository.delete(id);
-    return foundTv.tv_id;
+    return foundTv.product_id;
   }
 }

@@ -19,9 +19,9 @@ import { Role } from 'src/auth/role.enum';
 export class ClothesController {
   constructor(private clothesService: ClothesService) {}
 
-  @Post()
-  @Roles(Role.Admin)
-  @UseGuards(CookieGuard)
+  @Post('new')
+  // @Roles(Role.Admin)
+  // @UseGuards(CookieGuard)
   async create(@Body() createClotheDto: CreateClotheDto): Promise<clothes> {
     return this.clothesService.create(createClotheDto);
   }
@@ -30,19 +30,18 @@ export class ClothesController {
   async getAll(): Promise<clothes[]> {
     return await this.clothesService.getAll();
   }
-  @Get(':name')
-  async getOneById(@Param('name') name: string): Promise<clothes> {
-    return await this.clothesService.getOneById(name);
+  @Get(':id')
+  async getOneById(@Param('id') id: number): Promise<clothes> {
+    return await this.clothesService.getOneById(id);
   }
-  @Post(':name')
+  @Post(':id')
   // @Roles(Role.Admin)
   // @UseGuards(CookieGuard)
   async updateClothe(
-    @Param('name') name: string,
+    @Param('id') id: number,
     @Body() newClotheDto: CreateClotheDto,
   ): Promise<clothes> {
-    console.log(name);
-    return await this.clothesService.update(name, newClotheDto);
+    return await this.clothesService.update(id, newClotheDto);
   }
   @Delete(':id')
   @Roles(Role.Admin)

@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import { Stack } from "@mui/material";
 import TextField from "@mui/material/TextField";
@@ -9,7 +9,8 @@ interface SignComponentProps<T> {
   buttonName: string;
   SendToServer: (...args: any[]) => Promise<void>;
   productName: any[] | null;
-  nameToUpdate:string|null;
+  nameToUpdate: string | null;
+
 }
 
 export const FormComponent = <T extends object>({
@@ -30,13 +31,12 @@ export const FormComponent = <T extends object>({
     const t = productName !== null ? Object.keys(productName) : [];
     setKeys(t);
   }, [productName]);
-  
+
   return (
     <div>
       <Stack spacing={3} direction="column">
         <Typography variant="h5">{buttonName}</Typography>
-        {userInput.map((user, id:number) => (
-          
+        {userInput.map((user) => (
           <TextField
             className="outlined-basic"
             label={user.toString()}
@@ -47,7 +47,11 @@ export const FormComponent = <T extends object>({
 
         <Button
           variant="contained"
-          onClick={() => {nameToUpdate===null?SendToServer(user):SendToServer(user,nameToUpdate)}}
+          onClick={() => {
+            nameToUpdate === null
+              ? SendToServer(user)
+              : SendToServer(user, nameToUpdate);
+          }}
           sx={{ background: "black" }}
         >
           {buttonName}

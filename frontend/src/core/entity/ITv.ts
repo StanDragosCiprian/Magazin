@@ -1,5 +1,5 @@
 export interface ITv {
-  tv_id:number,
+  product_id:number,
   name: string;
   price: number;
   currency: string;

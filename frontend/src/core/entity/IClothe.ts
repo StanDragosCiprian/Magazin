@@ -1,5 +1,5 @@
 export interface IClothes {
-  clothe_id: number;
+  product_id: number;
 
   name: string;
 

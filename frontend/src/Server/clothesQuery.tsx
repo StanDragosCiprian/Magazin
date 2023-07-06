@@ -1,5 +1,20 @@
 import { IClothes } from "../core/entity/IClothe";
 import Cookies from "js-cookie";
+
+export const handleNewClothes = async (clothesInput: IClothes): Promise<void> => {
+  const response = await fetch("http://localhost:3000/clothes/new", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    //credentials: "include",
+    body: JSON.stringify(clothesInput),
+  });
+  const data = await response.json();
+  console.log(data);
+  window.location.href = "/";
+};
+
 export const getClothes = async (): Promise<IClothes[]> => {
   let response = await fetch("http://localhost:3000/clothes/getAll", {
     method: "GET",

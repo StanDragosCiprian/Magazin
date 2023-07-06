@@ -1,6 +1,6 @@
 import { ITv } from "../entity/ITv";
 export const Tv: ITv = {
-  tv_id:0,
+  product_id:0,
   name: "",
   price: 0,
   currency: "",

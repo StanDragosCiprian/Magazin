@@ -19,9 +19,9 @@ import { Role } from 'src/auth/role.enum';
 export class TvController {
   constructor(private tvService: TvService) {}
 
-  @Post('/send')
-  @Roles(Role.Admin)
-  @UseGuards(CookieGuard)
+  @Post('/new')
+  // @Roles(Role.Admin)
+  // @UseGuards(CookieGuard)
   async create(@Body() createTvDto: CreateTvDto): Promise<tv> {
     return this.tvService.create(createTvDto);
   }
@@ -30,17 +30,17 @@ export class TvController {
     return await this.tvService.getAll();
   }
   @Get(':id')
-  async getOneById(@Param('id', ParseIntPipe) id: number): Promise<tv> {
+  async getOneById(@Param('id') id: number): Promise<tv> {
     return await this.tvService.getOneById(id);
   }
-  @Patch(':name')
-  @Roles(Role.Admin)
-  @UseGuards(CookieGuard)
+  @Post(':id')
+  // @Roles(Role.Admin)
+  // @UseGuards(CookieGuard)
   async updateTv(
-    @Param('name', ParseIntPipe) name: string,
+    @Param('id') id: number,
     @Body() newTvDto: CreateTvDto,
   ): Promise<tv> {
-    return await this.tvService.update(name, newTvDto);
+    return await this.tvService.update(id, newTvDto);
   }
   @Delete(':id')
   @Roles(Role.Admin)

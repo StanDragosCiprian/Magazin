@@ -8,7 +8,10 @@ interface IMouseChild {
 export const MouseMenu: React.FC<IMouseChild> = ({ children }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [switchToTable, setSwitchToTable] = useState<boolean>();
-  const [menuPosition, setMenuPosition] = useState<{ top: number; left: number }>({
+  const [menuPosition, setMenuPosition] = useState<{
+    top: number;
+    left: number;
+  }>({
     top: 0,
     left: 0,
   });
@@ -21,11 +24,12 @@ export const MouseMenu: React.FC<IMouseChild> = ({ children }) => {
     setMenuPosition({ top: event.clientY, left: event.clientX });
   };
 
-  const handleIsComponents = (IsComponents: boolean) => {
-    setSwitchToTable(IsComponents);
+  const handleIsComponents = (IsComponents: string) => {
+    setSwitchCondition(IsComponents);
     setAnchorEl(null);
   };
-
+  const [displayChildren] = useState<string[]>(["clothes", "tv", " New Clothes", "New Tv"]);
+  const [switchCondition, setSwitchCondition] = useState<string>("clothes");
   return (
     <div onContextMenu={handleContextMenu}>
       <Menu
@@ -36,10 +40,19 @@ export const MouseMenu: React.FC<IMouseChild> = ({ children }) => {
         anchorReference="anchorPosition"
         anchorPosition={menuPosition}
       >
-        <MenuItem onClick={() => handleIsComponents(true)}>Clothes</MenuItem>
-        <MenuItem onClick={() => handleIsComponents(false)}>Tv</MenuItem>
+        <MenuItem onClick={() => handleIsComponents("clothes")}>
+          Clothes
+        </MenuItem>
+        <MenuItem onClick={() => handleIsComponents("tv")}>Tv</MenuItem>
+        <MenuItem onClick={() => handleIsComponents(" New Clothes")}>
+          New Clothes
+        </MenuItem>
+        <MenuItem onClick={() => handleIsComponents("New Tv")}>New Tv</MenuItem>
       </Menu>
-      {switchToTable ? children[0] : children[1]}
+      {displayChildren.map(
+        (disChild, id) => disChild === switchCondition && children[id]
+      )}
+
     </div>
   );
 };

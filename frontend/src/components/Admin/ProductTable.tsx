@@ -54,6 +54,7 @@ export const ProductTable: React.FC<IProduct> = ({
   };
 
   const handleUpdate = async (rowData: any) => {
+    console.log(rowData);
     await getProductName(rowData).then((resp) => {
       setProductAll(resp);
       console.log(resp);
@@ -87,7 +88,7 @@ export const ProductTable: React.FC<IProduct> = ({
                             edge="start"
                             color="inherit"
                             aria-label="menu"
-                            onClick={() => handleUpdate(rowData["name"])}
+                            onClick={() => handleUpdate(rowData["product_id"])}
                             sx={{ mr: 2 }}
                           >
                             <UpdateIcon />
