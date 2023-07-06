@@ -38,17 +38,8 @@ export class UsersController {
     const passwordSave = await this.usersService.getOneByCondition({
       password: password,
     });
-    const rolee = await this.usersService.getMoreByCondition({
-      users_id: emailSave,
-    });
-    console.log(rolee.role);
-    if (emailSave === passwordSave) {
-      if (rolee.role === 'admin') {
-        return 5648645.3657;
-      } else {
-        return emailSave;
-      }
-    }
+
+    if (emailSave === passwordSave) return emailSave;
   }
   @Get(':id')
   @Roles(Role.Admin)

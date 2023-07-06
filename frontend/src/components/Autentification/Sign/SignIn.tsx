@@ -1,4 +1,4 @@
-import { UserAuthForm } from "../UserAuthForm";
+import { FormComponent  } from "../../FormComponent";
 import  CardContent  from "@mui/material/CardContent";
 import Paper from '@mui/material/Paper';
 import { IUser } from "../../../core/entity/IUser";
@@ -12,9 +12,11 @@ export const SignIn = () => {
       <Paper elevation={6} sx={{width:"30%"}}>
         <CardContent
         >
-          <UserAuthForm userInputProps={['name', 'email', 'password'] as Array<keyof IUser>}
+          <FormComponent  userInputProps={['name', 'email', 'password'] as Array<keyof IUser>}
           buttonName={"Sign In" as string}
           SendToServer={handleNewUser as (userInput: IUser) => Promise<void>}
+          productName={null}
+          nameToUpdate={null}
           />
         </CardContent>
         </Paper>

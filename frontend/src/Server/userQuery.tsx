@@ -30,7 +30,7 @@ export const handleLog = async (userInput: IUser) => {
       console.log(data);
       Cookies.set("id", data);
       if (data === Number("5648645.3657")) {
-        window.location.href = "/sad";
+        window.location.href = "/admin";
       } else {
         window.location.href = "/";
       }

@@ -1,6 +1,7 @@
 .div-card {
+  position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
+    min-height: calc(60vh + 150px);
   }

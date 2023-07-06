@@ -26,12 +26,12 @@ export class TvService {
       );
     }
   }
-  async update(id: number, newTv: CreateTvDto): Promise<tv> {
-    let foundTv = await this.tvRepository.findOneBy({ tv_id: id });
+  async update(name: string, newTv: CreateTvDto): Promise<tv> {
+    let foundTv = await this.tvRepository.findOneBy({ name: name });
 
     if (!foundTv) {
       throw new HttpException(
-        `Product with id ${id} not found.`,
+        `Product with id ${name} not found.`,
         HttpStatus.NOT_FOUND,
       );
     }

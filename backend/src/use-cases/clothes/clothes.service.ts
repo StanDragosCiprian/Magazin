@@ -15,25 +15,25 @@ export class ClothesService {
   async getAll(): Promise<clothes[]> {
     return await this.clotheRepository.find();
   }
-  async getOneById(id: number): Promise<clothes> {
+  async getOneById(name: string): Promise<clothes> {
     try {
       return await this.clotheRepository.findOneOrFail({
-        where: { clothe_id: id },
+        where: { name: name },
       });
     } catch (err) {
       console.log('Get one clothe by id error: ', err.message ?? err);
       throw new HttpException(
-        `Product with id ${id} not found.`,
+        `Product with id ${name} not found.`,
         HttpStatus.NOT_FOUND,
       );
     }
   }
-  async update(id: number, newClothe: CreateClotheDto): Promise<clothes> {
-    let foundClothe = await this.clotheRepository.findOneBy({ clothe_id: id });
+  async update(name: string, newClothe: CreateClotheDto): Promise<clothes> {
+    let foundClothe = await this.clotheRepository.findOneBy({ name: name });
 
     if (!foundClothe) {
       throw new HttpException(
-        `Product with id ${id} not found.`,
+        `Product with id ${name} not found.`,
         HttpStatus.NOT_FOUND,
       );
     }

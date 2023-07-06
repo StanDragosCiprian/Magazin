@@ -33,14 +33,14 @@ export class TvController {
   async getOneById(@Param('id', ParseIntPipe) id: number): Promise<tv> {
     return await this.tvService.getOneById(id);
   }
-  @Patch(':id')
+  @Patch(':name')
   @Roles(Role.Admin)
   @UseGuards(CookieGuard)
   async updateTv(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('name', ParseIntPipe) name: string,
     @Body() newTvDto: CreateTvDto,
   ): Promise<tv> {
-    return await this.tvService.update(id, newTvDto);
+    return await this.tvService.update(name, newTvDto);
   }
   @Delete(':id')
   @Roles(Role.Admin)

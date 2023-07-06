@@ -30,18 +30,19 @@ export class ClothesController {
   async getAll(): Promise<clothes[]> {
     return await this.clothesService.getAll();
   }
-  @Get(':id')
-  async getOneById(@Param('id') id: number): Promise<clothes> {
-    return await this.clothesService.getOneById(id);
+  @Get(':name')
+  async getOneById(@Param('name') name: string): Promise<clothes> {
+    return await this.clothesService.getOneById(name);
   }
-  @Patch(':id')
-  @Roles(Role.Admin)
-  @UseGuards(CookieGuard)
+  @Post(':name')
+  // @Roles(Role.Admin)
+  // @UseGuards(CookieGuard)
   async updateClothe(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('name') name: string,
     @Body() newClotheDto: CreateClotheDto,
   ): Promise<clothes> {
-    return await this.clothesService.update(id, newClotheDto);
+    console.log(name);
+    return await this.clothesService.update(name, newClotheDto);
   }
   @Delete(':id')
   @Roles(Role.Admin)
