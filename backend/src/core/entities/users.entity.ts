@@ -14,9 +14,9 @@ export class Users {
   @Column({ unique: true })
   password: string;
 
-  @Column()
+  @Column({ default: 'user' })
   role: string;
 
-  @Column()
+  @Column({ default: '[]' })
   order: string;
 }
