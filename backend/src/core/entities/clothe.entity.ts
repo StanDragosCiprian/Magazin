@@ -21,7 +21,7 @@ export class clothes {
   color: string;
 
   @Column()
-  size: number;
+  size: string;
 
   @Column()
   style: string;

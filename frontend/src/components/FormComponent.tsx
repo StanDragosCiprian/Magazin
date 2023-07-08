@@ -44,7 +44,6 @@ export const FormComponent = <T extends object>({
             onChange={(e) => handleUser(e.target.value, user)}
           />
         ))}
-
         <Button
           variant="contained"
           onClick={() => {

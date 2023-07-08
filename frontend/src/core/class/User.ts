@@ -4,5 +4,5 @@ export const User:IUser={
     email: "",
     password: "",
     role: "user",
-    order: "{}",
+    order: "[]",
   }

@@ -25,8 +25,8 @@ export class UsersController {
     return id;
   }
   @Get('/getAll')
-  @Roles(Role.Admin)
-  @UseGuards(CookieGuard)
+  // @Roles(Role.Admin)
+  // @UseGuards(CookieGuard)
   async getAll(): Promise<Users[]> {
     return await this.usersService.getAll();
   }
@@ -42,14 +42,14 @@ export class UsersController {
     if (emailSave === passwordSave) return emailSave;
   }
   @Get(':id')
-  @Roles(Role.Admin)
-  @UseGuards(CookieGuard)
+  // @Roles(Role.Admin)
+  // @UseGuards(CookieGuard)
   async getOneById(@Param('id', ParseIntPipe) id: number): Promise<number> {
     return await this.usersService.getOneByCondition({ user_id: id });
   }
   @Patch(':id')
-  @Roles(Role.Admin)
-  @UseGuards(CookieGuard)
+  // @Roles(Role.Admin)
+  // @UseGuards(CookieGuard)
   async updateUser(
     @Param('id', ParseIntPipe) id: number,
     @Body() newUserDto: CreateUsersDto,
@@ -57,8 +57,8 @@ export class UsersController {
     return await this.usersService.update(id, newUserDto);
   }
   @Delete(':id')
-  @Roles(Role.Admin)
-  @UseGuards(CookieGuard)
+  // @Roles(Role.Admin)
+  // @UseGuards(CookieGuard)
   async delete(@Param('id', ParseIntPipe) id: number): Promise<number> {
     return await this.usersService.delete(id);
   }

@@ -25,9 +25,9 @@ export class CreateClotheDto {
   @IsNotEmpty()
   color: string;
 
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
-  size: number;
+  size: string;
 
   @IsString()
   @IsNotEmpty()
