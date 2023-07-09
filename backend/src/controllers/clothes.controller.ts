@@ -21,7 +21,7 @@ export class ClothesController {
 
   @Post('new')
   // @Roles(Role.Admin)
-  // @UseGuards(CookieGuard)
+  @UseGuards(CookieGuard)
   async create(@Body() createClotheDto: CreateClotheDto): Promise<clothes> {
     return this.clothesService.create(createClotheDto);
   }

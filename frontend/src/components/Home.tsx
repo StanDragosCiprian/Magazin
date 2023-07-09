@@ -8,8 +8,7 @@ import { useState } from "react";
 export const Home = () => {
   const tv = Tv();
   const clothes = Clothes();
-  const [category, setCategory] = useState();
-  const sizes = ["XL", "L"];
+  const [category, setCategory] = useState("All Clothes");
   return (
     <>
       <GroupedSelect tv={tv} clothes={clothes} setCategory={setCategory} />
@@ -28,8 +27,18 @@ export const Home = () => {
                   return value === category;
                 });
               })
-              .map((item) => <ProductCard product={item} />)
-          : clothes?.map((item) => <ProductCard product={item} />)}
+              .map((item) => (
+                <ProductCard
+                  product={item}
+                  path={`/clothes/${item.product_id}`}
+                />
+              ))
+          : clothes?.map((item) => (
+              <ProductCard
+                product={item}
+                path={`/clothes/${item.product_id}`}
+              />
+            ))}
 
         {category !== "All Tv"
           ? tv
@@ -38,10 +47,13 @@ export const Home = () => {
                   (value) => value === category
                 );
               })
-              .map((tvVar) => <ProductCard product={tvVar} />)
-          : tv?.map((tvVar) => <ProductCard product={tvVar} />)}
+              .map((tvVar) => (
+                <ProductCard product={tvVar} path={`/tv/${tvVar.product_id}`} />
+              ))
+          : tv?.map((tvVar) => (
+              <ProductCard product={tvVar} path={`/tv/${tvVar.product_id}`} />
+            ))}
       </Box>
-      {category}
     </>
   );
 };

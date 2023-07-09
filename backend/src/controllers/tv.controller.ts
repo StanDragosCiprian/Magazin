@@ -20,8 +20,8 @@ export class TvController {
   constructor(private tvService: TvService) {}
 
   @Post('/new')
-  // @Roles(Role.Admin)
-  // @UseGuards(CookieGuard)
+  @Roles(Role.Admin)
+  @UseGuards(CookieGuard)
   async create(@Body() createTvDto: CreateTvDto): Promise<tv> {
     return this.tvService.create(createTvDto);
   }

@@ -3,34 +3,36 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-import { useEffect, useState } from "react";
-import { getTv } from "../../Server/tvQuery";
-import { IProduct } from "../../core/entity/IProduct";
+import { Link } from "react-router-dom";
 
 interface IProductCard {
   product: any;
+  path:string
 }
-export const ProductCard: React.FC<IProductCard> = ({ product }) => {
+export const ProductCard: React.FC<IProductCard> = ({ product,path }) => {
   return (
     <>
-      <Card sx={{ maxWidth: 245, margin: 3}}>
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            height="250"
-            image={product.image}
-            alt="green iguana"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h6" component="div">
-              {product.name}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {"24 LEI"}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-      </Card>
+      <Link to={path}>
+        <Card sx={{ maxWidth: 245, margin: 3 }}>
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              height="250"
+              image={product.image}
+              alt="green iguana"
+            />
+
+            <CardContent>
+              <Typography gutterBottom variant="h6" component="div">
+                {product.name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {`${product.price} ${product.currency}`}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+      </Link>
     </>
   );
 };

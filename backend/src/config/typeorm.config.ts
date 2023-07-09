@@ -1,4 +1,5 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { Users } from 'src/core/entities/users.entity';
 
 export const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'mysql',
@@ -7,7 +8,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   username: 'root',
   password: '1234',
   database: 'magazindb',
-  entities: ['dist/**/*.entity{.ts,.js}'], //__dirname + '/../**/*.entity{.ts,.js}'
+  entities: [Users, 'dist/**/*.entity{.ts,.js}'], //__dirname + '/../**/*.entity{.ts,.js}'
   synchronize: true,
   timezone: 'utc',
 };
