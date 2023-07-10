@@ -10,7 +10,6 @@ export const handleNewTv = async (tvInput: ITv): Promise<void> => {
     body: JSON.stringify(tvInput),
   });
   const data = await response.json();
-  console.log(data);
   // window.location.href = "/";
 };
 export const getTv = async (): Promise<ITv[]> => {
@@ -34,7 +33,6 @@ export const deleteTv = async (id:string): Promise<void> => {
 
   });
   const data = await response.json();
-  console.log(data);
   //window.location.href = "/";
 };
 export const getOneTv = async (tv: string): Promise<ITv> => {

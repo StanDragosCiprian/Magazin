@@ -3,11 +3,11 @@ import  CardContent  from "@mui/material/CardContent";
 import Paper from '@mui/material/Paper';
 import { IUser } from "../../../core/entity/IUser";
 import { handleNewUser } from "../../../Server/userQuery";
-import 'E:/Magazin graffino/Docker-Interns/frontend/src/App.css'
+import 'E:/Magazin graffino/Docker-Interns/frontend/src/app.css'
 export const SignIn = () => {
   return (
     <div
-      className="div-card"
+      className="card"
     >
       <Paper elevation={6} sx={{width:"30%"}}>
         <CardContent

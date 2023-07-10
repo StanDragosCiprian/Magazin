@@ -4,7 +4,6 @@ import { Tv } from "../core/class/Tv";
 import { ProductCard } from "./Product Card/ProductCard";
 import { GroupedSelect } from "./Filter";
 import { useState } from "react";
-
 export const Home = () => {
   const tv = Tv();
   const clothes = Clothes();

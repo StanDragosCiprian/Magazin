@@ -14,7 +14,6 @@ export const handleNewClothes = async (
     body: JSON.stringify(clothesInput),
   });
   const data = await response.json();
-  console.log(data);
   window.location.href = "/";
 };
 export const deleteClothes = async (id: string): Promise<void> => {
@@ -25,7 +24,7 @@ export const deleteClothes = async (id: string): Promise<void> => {
     },
   });
   const data = await response.json();
-  console.log(data);
+
   //window.location.href = "/";
 };
 export const getClothes = async (): Promise<IClothes[]> => {

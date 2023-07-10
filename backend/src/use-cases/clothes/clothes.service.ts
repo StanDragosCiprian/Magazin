@@ -21,7 +21,6 @@ export class ClothesService {
         where: { product_id: id },
       });
     } catch (err) {
-      console.log('Get one clothe by id error: ', err.message ?? err);
       throw new HttpException(
         `Product with id ${id} not found.`,
         HttpStatus.NOT_FOUND,

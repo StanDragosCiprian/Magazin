@@ -8,8 +8,7 @@ import { TvPage } from "./components/Product/TvPage";
 import { isAdmin } from "./components/Admin/verifyAdmin";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header"></header>
+    <div>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />

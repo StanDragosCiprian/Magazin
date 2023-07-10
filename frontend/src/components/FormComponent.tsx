@@ -10,7 +10,6 @@ interface SignComponentProps<T> {
   SendToServer: (...args: any[]) => Promise<void>;
   productName: any[] | null;
   nameToUpdate: string | null;
-
 }
 
 export const FormComponent = <T extends object>({

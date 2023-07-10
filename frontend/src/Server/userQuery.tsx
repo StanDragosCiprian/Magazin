@@ -11,13 +11,11 @@ export const handleNewUser = async (userInput: IUser): Promise<void> => {
     body: JSON.stringify(userInput),
   });
   const data = await response.json();
-  console.log(data);
   Cookies.set("id", data);
   window.location.href = "/";
 };
-export const handleLog = async (userInput: IUser) => {
+export const handleLog = async (userInput: IUser): Promise<void> => {
   //const userData = { email: userInput.email, password: userInput.password };
-  console.log(userInput);
   await fetch("http://localhost:3000/users/log", {
     method: "POST",
     headers: {
@@ -27,10 +25,9 @@ export const handleLog = async (userInput: IUser) => {
   })
     .then((resp) => resp.json())
     .then((data) => {
-      console.log(data);
       Cookies.set("id", data);
-      if (data === Number("5648645.3657")) {
-        window.location.href = "/admin";
+      if (data?.message === "User not found.") {
+        alert(data?.message);
       } else {
         window.location.href = "/";
       }
