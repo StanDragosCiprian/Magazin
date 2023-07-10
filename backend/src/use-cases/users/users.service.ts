@@ -22,7 +22,16 @@ export class UsersService {
       });
       return userId;
     } catch (err) {
-      console.log('Get one user by id error: ', err.message ?? err);
+      throw new HttpException(`User not found.`, HttpStatus.NOT_FOUND);
+    }
+  }
+  async getRole(id: number): Promise<string> {
+    try {
+      const userId = await this.userRepository.findOneOrFail({
+        where: { users_id: id },
+      });
+      return userId.role;
+    } catch (err) {
       throw new HttpException(`User not found.`, HttpStatus.NOT_FOUND);
     }
   }
@@ -33,7 +42,6 @@ export class UsersService {
       });
       return userId.users_id;
     } catch (err) {
-      console.log('Get one user by id error: ', err.message ?? err);
       throw new HttpException(`User not found.`, HttpStatus.NOT_FOUND);
     }
   }

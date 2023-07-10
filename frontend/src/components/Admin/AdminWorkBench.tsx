@@ -9,8 +9,6 @@ import { deleteTv, getOneTv, getTv, handleNewTv, updateTv } from "../../Server/t
 import { ProductTable } from "./ProductTable";
 import { useState, useEffect } from "react";
 import { FormComponent } from "../FormComponent";
-import { handleLog } from "../../Server/userQuery";
-import { IUser } from "../../core/entity/IUser";
 import { FormCard } from "../Card";
 import { updateClothes } from "../../Server/clothesQuery";
 import { IClothes } from "../../core/entity/IClothe";

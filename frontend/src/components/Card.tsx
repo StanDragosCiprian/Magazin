@@ -6,7 +6,7 @@ interface FormComp {
 }
 export const FormCard :React.FC<FormComp>= ({ children }) => {
   return (
-    <div className="div-card">
+    <div className="card">
       <Paper elevation={6} sx={{ width: "30%" }}>
         <CardContent>{children}</CardContent>
       </Paper>

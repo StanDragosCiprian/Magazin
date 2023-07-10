@@ -7,7 +7,6 @@ interface IMouseChild {
 
 export const MouseMenu: React.FC<IMouseChild> = ({ children }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [switchToTable, setSwitchToTable] = useState<boolean>();
   const [menuPosition, setMenuPosition] = useState<{
     top: number;
     left: number;

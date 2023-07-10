@@ -12,17 +12,16 @@ import { IClothes } from "../../core/entity/IClothe";
 
 export const ClothesPage = () => {
   const { id } = useParams();
+  const clothes = useTakeClothesById({ path: id });
 
-  const clothes: IClothes | undefined = useTakeClothesById({ path: id });
-  const handleSize = (): string[] => {
-    if (clothes !== undefined) {
+  const handleSize = () => {
+    if (clothes) {
       const size = Object.values(clothes);
       return size[6].split(",");
     }
     return [];
   };
 
-  console.log(clothes);
   return (
     <>
       <Box display="flex" flexWrap="wrap">
@@ -34,30 +33,27 @@ export const ClothesPage = () => {
             alt="green iguana"
           />
         </Card>
-        <Box
-          sx={{ textAlign: "center", marginLeft: "100px", marginTop: "20px" }}
-        >
+        <Box sx={{ marginLeft: "100px", marginTop: "20px" }}>
           <Typography gutterBottom variant="h6" component="div">
             {clothes?.name}
           </Typography>
-          <Typography gutterBottom variant="h6" component="div">
+          <Typography gutterBottom component="div" sx={{ maxWidth: 500 }}>
             {clothes?.desctiption}
           </Typography>
-          <Divider />
+
           <Box
             sx={{
               display: "flex",
               flexDirection: "row",
-              justifyContent: "center",
             }}
           >
-            {handleSize().map((size: string) => (
+            {handleSize().map((size: any) => (
               <Button
                 variant="contained"
                 sx={{
                   background: "black",
-                  marginLeft: "5px",
-                  marginTop: "25px",
+                  marginRight: "5px",
+                  marginTop: "5px",
                 }}
               >
                 {size}
@@ -65,26 +61,34 @@ export const ClothesPage = () => {
             ))}
           </Box>
           <Typography gutterBottom variant="h6" component="div">
-            {clothes?.style}
+            {`${clothes?.color} ${clothes?.style}`}
           </Typography>
-
-          <Typography gutterBottom variant="h6" component="div">
-            {clothes?.color}
-          </Typography>
-          <Typography gutterBottom variant="h6" component="div">
-            {`${clothes?.price} ${clothes?.currency}`}
-          </Typography>
-          <Button
-            variant="contained"
+          <Divider sx={{ marginBottom: "10px" }} />
+          <Box
             sx={{
-              background: "black",
-              marginLeft: "5px",
-              marginTop: "25px",
-              width: "250px",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center", // Add this line
             }}
           >
-            BUY
-          </Button>
+            <Typography
+              gutterBottom
+              sx={{ fontSize: "1.2em", fontWeight: "bold", margin: "0" }}
+              component="div"
+            >
+              {`${clothes?.price} ${clothes?.currency}`}
+            </Typography>
+            <Button
+              variant="contained"
+              sx={{
+                background: "black",
+                marginLeft: "5px",
+                width: "250px",
+              }}
+            >
+              BUY
+            </Button>
+          </Box>
         </Box>
       </Box>
     </>

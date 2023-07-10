@@ -11,10 +11,6 @@ import { useEffect, useState } from "react";
 import { IconButton } from "@mui/material";
 import UpdateIcon from "@mui/icons-material/Update";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { FormComponent } from "../FormComponent";
-import { handleLog } from "../../Server/userQuery";
-import { IUser } from "../../core/entity/IUser";
-import { getOneClothes } from "../../Server/clothesQuery";
 interface IProduct {
   product: Promise<any[]>;
   productKey: string[];
@@ -57,10 +53,8 @@ export const ProductTable: React.FC<IProduct> = ({
   };
 
   const handleUpdate = async (rowData: any) => {
-    console.log(rowData);
     await getProductName(rowData).then((resp) => {
       setProductAll(resp);
-      console.log(resp);
       setUpdate(rowData);
     });
   };

@@ -5,17 +5,17 @@ import { RedirectButton } from "./RedirectButton";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import Badge from "@mui/material/Badge";
+import { isAdmin } from "../Admin/verifyAdmin";
 export const Navigation = () => {
   const [author, setAuthor] = useState("");
   const logOutEvent = () => {
     Cookies.remove("id");
     setAuthor("");
+    window.location.href='/';
   };
   useEffect(() => {
     const cookies = Cookies.get("id");
-    console.log(cookies);
     if (cookies) setAuthor(cookies);
-    
   }, []);
   return (
     <AppBar position="static" sx={{ backgroundColor: "white", height: "64px" }}>
@@ -31,6 +31,12 @@ export const Navigation = () => {
           </Typography>
           ;<Box></Box>
           <Box>
+            {isAdmin() && (
+              <RedirectButton
+                pathProps={["/admin"]}
+                nameProps={["Admin"]}
+              />
+            )}
             {/* {author === '' ? <UserIcon /> : null} */}
             <RedirectButton pathProps={["/"]} nameProps={["Home"]} />
             {author === "" ? (

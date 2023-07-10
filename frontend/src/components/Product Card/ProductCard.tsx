@@ -13,7 +13,7 @@ export const ProductCard: React.FC<IProductCard> = ({ product,path }) => {
   return (
     <>
       <Link to={path}>
-        <Card sx={{ maxWidth: 245, margin: 3 }}>
+        <Card sx={{ maxWidth: 245, margin: 1 }}>
           <CardActionArea>
             <CardMedia
               component="img"
