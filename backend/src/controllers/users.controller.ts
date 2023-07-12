@@ -7,6 +7,7 @@ import {
   Delete,
   ParseIntPipe,
   UseGuards,
+  Req,
 } from '@nestjs/common';
 import { UsersService } from 'src/use-cases/users/users.service';
 import { CreateUsersDto } from 'src/core/dto/users.dto';
@@ -47,8 +48,14 @@ export class UsersController {
   async getOneById(@Param('id', ParseIntPipe) id: number): Promise<number> {
     return await this.usersService.getOneByCondition({ user_id: id });
   }
+  // @Get('newOrder/:name')
+  // async newOrder(
+  //   @Param('name') name: string,
+  //   @Req() req: Request,
+  // ): Promise<Users> {
+
+  // }
   @Post(':id')
-  @UseGuards(CookieGuard)
   async updateUser(
     @Param('id', ParseIntPipe) id: number,
     @Body() newUserDto: CreateUsersDto,

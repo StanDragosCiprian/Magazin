@@ -67,3 +67,15 @@ export const updateClothes = async (
   let data = await responseType;
   return data;
 };
+
+export const getOneClothesByName=async (name:string):Promise<IClothes>=>{
+  let response = await fetch(`http://localhost:3000/clothes/get/${name}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  let responseType = await response.json();
+  let data = await responseType;
+  return data;
+};

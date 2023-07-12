@@ -57,6 +57,22 @@ export class UsersService {
     foundUser = { ...foundUser, ...newUser };
     return await this.userRepository.save(foundUser);
   }
+  async newOrder(
+    id: number,
+    orderName: string,
+    newUser: CreateUsersDto,
+  ): Promise<Users> {
+    let foundUser = await this.userRepository.findOneBy({ users_id: id });
+
+    if (!foundUser) {
+      throw new HttpException(
+        `User with id ${id} not found.`,
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    foundUser = { ...foundUser, ...newUser };
+    return await this.userRepository.save(foundUser);
+  }
   async delete(id: number): Promise<number> {
     const foundUser = await this.userRepository.findOneBy({ users_id: id });
 

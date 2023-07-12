@@ -15,7 +15,7 @@ interface SignComponentProps<T> {
 export const FormComponent = <T extends object>({
   userInputProps,
   buttonName,
-  SendToServer,
+  SendToServer: sendToServer,
   productName,
   nameToUpdate,
 }: SignComponentProps<T>) => {
@@ -47,8 +47,8 @@ export const FormComponent = <T extends object>({
           variant="contained"
           onClick={() => {
             nameToUpdate === null
-              ? SendToServer(user)
-              : SendToServer(user, nameToUpdate);
+              ? sendToServer(user)
+              : sendToServer(user, nameToUpdate);
           }}
           sx={{ background: "black" }}
         >

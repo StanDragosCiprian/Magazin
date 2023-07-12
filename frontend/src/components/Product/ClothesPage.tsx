@@ -8,7 +8,7 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
-import { IClothes } from "../../core/entity/IClothe";
+import { getOneClothesByName } from "../../Server/clothesQuery";
 
 export const ClothesPage = () => {
   const { id } = useParams();
@@ -22,6 +22,11 @@ export const ClothesPage = () => {
     return [];
   };
 
+  const handleProductName = async (name: any) => {
+    const clothesTest = getOneClothesByName(name).then((data) =>
+      console.log(data)
+    );
+  };
   return (
     <>
       <Box display="flex" flexWrap="wrap">
@@ -85,6 +90,7 @@ export const ClothesPage = () => {
                 marginLeft: "5px",
                 width: "250px",
               }}
+              onClick={() => handleProductName(clothes?.name)}
             >
               BUY
             </Button>

@@ -33,3 +33,18 @@ export const handleLog = async (userInput: IUser): Promise<void> => {
       }
     });
 };
+export const handleUserById = async (): Promise<IUser> => {
+  const id: number = Number(Cookies.get("id"));
+  const response = await fetch(`http://localhost:3000/users/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+
+  });
+  const data = await response.json();
+  return data;
+  
+};
+
+

@@ -28,8 +28,13 @@ export class ClothesController {
   }
   @Get(':id')
   async getOneById(@Param('id') id: number): Promise<clothes> {
-    return await this.clothesService.getOneById(id);
+    return await this.clothesService.getByCondition({ product_id: id });
   }
+  @Get('get/:name')
+  async getOneByName(@Param('name') name: string): Promise<clothes> {
+    return await this.clothesService.getByCondition({ name: name });
+  }
+
   @Post(':id')
   @UseGuards(CookieGuard)
   async updateClothe(

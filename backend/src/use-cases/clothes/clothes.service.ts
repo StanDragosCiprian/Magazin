@@ -15,16 +15,15 @@ export class ClothesService {
   async getAll(): Promise<clothes[]> {
     return await this.clotheRepository.find();
   }
-  async getOneById(id: number): Promise<clothes> {
+  async getByCondition(condition: object): Promise<clothes> {
     try {
-      return await this.clotheRepository.findOneOrFail({
-        where: { product_id: id },
+      const user = await this.clotheRepository.findOneOrFail({
+        where: condition,
       });
+      return user;
     } catch (err) {
-      throw new HttpException(
-        `Product with id ${id} not found.`,
-        HttpStatus.NOT_FOUND,
-      );
+      console.log('Get one user by id error: ', err.message ?? err);
+      throw new HttpException(`User not found.`, HttpStatus.NOT_FOUND);
     }
   }
   async update(id: number, newClothe: CreateClotheDto): Promise<clothes> {
