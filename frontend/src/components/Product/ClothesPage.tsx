@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { getOneClothesByName } from "../../Server/clothesQuery";
+import { handleNewOrder } from "../../Server/userQuery";
 
 export const ClothesPage = () => {
   const { id } = useParams();
@@ -23,7 +24,7 @@ export const ClothesPage = () => {
   };
 
   const handleProductName = async (name: any) => {
-    const clothesTest = getOneClothesByName(name).then((data) =>
+    const clothesTest = handleNewOrder(name).then((data) =>
       console.log(data)
     );
   };
@@ -73,7 +74,7 @@ export const ClothesPage = () => {
             sx={{
               display: "flex",
               flexDirection: "row",
-              alignItems: "center", // Add this line
+              alignItems: "center",
             }}
           >
             <Typography

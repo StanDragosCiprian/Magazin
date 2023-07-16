@@ -5,7 +5,6 @@ import { FormCard } from "../../Card";
 
 export const Login = () => {
   return (
-    // <UserAuthForm />
     <FormCard>
       <FormComponent
         userInputProps={["email", "password"] as Array<keyof IUser>}

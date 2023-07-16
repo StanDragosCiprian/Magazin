@@ -15,11 +15,9 @@ export class PaymentsController {
     this.paymentService
       .createPayment(paymentRequestBody)
       .then((res) => {
-        console.log('payment done successfully');
         response.status(HttpStatus.CREATED).json(res);
       })
       .catch((err) => {
-        console.log('payment not done');
         response.status(HttpStatus.BAD_REQUEST).json(err);
       });
   }

@@ -1,10 +1,6 @@
 import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CreateClotheDto {
-  //   @IsNumber()
-  //   @IsNotEmpty()
-  //   id: number;
-
   @IsString()
   @IsNotEmpty()
   name: string;

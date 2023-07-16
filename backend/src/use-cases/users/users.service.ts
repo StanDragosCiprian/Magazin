@@ -57,12 +57,8 @@ export class UsersService {
     foundUser = { ...foundUser, ...newUser };
     return await this.userRepository.save(foundUser);
   }
-  async newOrder(
-    id: number,
-    orderName: string,
-    newUser: CreateUsersDto,
-  ): Promise<Users> {
-    let foundUser = await this.userRepository.findOneBy({ users_id: id });
+  async newOrder(id: number, orderName: string): Promise<Users> {
+    const foundUser = await this.userRepository.findOneBy({ users_id: id });
 
     if (!foundUser) {
       throw new HttpException(
@@ -70,7 +66,8 @@ export class UsersService {
         HttpStatus.NOT_FOUND,
       );
     }
-    foundUser = { ...foundUser, ...newUser };
+    foundUser.order += `,${orderName}`;
+
     return await this.userRepository.save(foundUser);
   }
   async delete(id: number): Promise<number> {

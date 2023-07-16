@@ -1,15 +1,22 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class CookieGuard implements CanActivate {
+  constructor(private readonly jwtService: JwtService) {}
+
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const cookieValue = request.cookies['id'];
-
-    if (Number(cookieValue) === 8923238.2289127) {
-      return true;
-    } else {
-      return false;
+    try {
+      const decodedToken = this.jwtService.verify(cookieValue);
+      if (decodedToken.role === 'admin') {
+        return true;
+      }
+    } catch (error) {
+      console.error(error);
     }
+
+    return false;
   }
 }

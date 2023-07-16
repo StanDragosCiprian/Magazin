@@ -1,10 +1,11 @@
 import { IClothes } from "../core/entity/IClothe";
 import Cookies from "js-cookie";
+import { url } from "./url.enum";
 
 export const handleNewClothes = async (
   clothesInput: IClothes
 ): Promise<void> => {
-  const response = await fetch("http://localhost:3000/clothes/new", {
+  const response = await fetch(`${url}clothes/new`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -14,24 +15,26 @@ export const handleNewClothes = async (
     body: JSON.stringify(clothesInput),
   });
   const data = await response.json();
-  window.location.href = "/";
+  window.location.href = "/admin";
 };
 export const deleteClothes = async (id: string): Promise<void> => {
-  const response = await fetch(`http://localhost:3000/clothes/${id}`, {
-    method: "DELETE",
+  console.log(id);
+  const response = await fetch(`${url}clothes/delete/${id}`, {
+    method: "Post",
     headers: {
       "Content-Type": "application/json",
     },
+    credentials: "include", 
   });
   const data = await response.json();
-
-  //window.location.href = "/";
 };
+
 export const getClothes = async (): Promise<IClothes[]> => {
-  let response = await fetch("http://localhost:3000/clothes/getAll", {
+  let response = await fetch(`${url}clothes/getAll`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+      
     },
   });
   let responseType = await response.json();
@@ -39,7 +42,7 @@ export const getClothes = async (): Promise<IClothes[]> => {
   return data;
 };
 export const getOneClothes = async (clothesName: string): Promise<IClothes> => {
-  let response = await fetch(`http://localhost:3000/clothes/${clothesName}`, {
+  let response = await fetch(`${url}clothes/${clothesName}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -53,7 +56,7 @@ export const updateClothes = async (
   update: IClothes,
   name: string
 ): Promise<void> => {
-  let response = await fetch(`http://localhost:3000/clothes/${name}`, {
+  let response = await fetch(`${url}clothes/${name}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -69,7 +72,7 @@ export const updateClothes = async (
 };
 
 export const getOneClothesByName=async (name:string):Promise<IClothes>=>{
-  let response = await fetch(`http://localhost:3000/clothes/get/${name}`, {
+  let response = await fetch(`${url}clothes/get/${name}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

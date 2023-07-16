@@ -52,7 +52,7 @@ export const TvPage = () => {
             sx={{
               display: "flex",
               flexDirection: "row",
-              alignItems: "center", // Add this line
+              alignItems: "center",
             }}
           >
             <Typography

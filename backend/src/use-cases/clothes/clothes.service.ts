@@ -22,7 +22,6 @@ export class ClothesService {
       });
       return user;
     } catch (err) {
-      console.log('Get one user by id error: ', err.message ?? err);
       throw new HttpException(`User not found.`, HttpStatus.NOT_FOUND);
     }
   }

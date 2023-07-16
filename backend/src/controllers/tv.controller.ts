@@ -36,7 +36,7 @@ export class TvController {
   ): Promise<tv> {
     return await this.tvService.update(id, newTvDto);
   }
-  @Delete(':id')
+  @Post('delete/:id')
   @UseGuards(CookieGuard)
   async delete(@Param('id') id: number): Promise<number> {
     return await this.tvService.delete(id);

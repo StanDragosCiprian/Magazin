@@ -13,14 +13,24 @@ import { UsersService } from 'src/use-cases/users/users.service';
 import { CreateUsersDto } from 'src/core/dto/users.dto';
 import { Users } from 'src/core/entities/users.entity';
 import { CookieGuard } from 'src/auth/role.guard';
+import { Request } from 'express';
+import { JwtService } from '@nestjs/jwt';
 @Controller('users')
 export class UsersController {
-  constructor(private usersService: UsersService) {}
+  constructor(
+    private usersService: UsersService,
+    private jwtService: JwtService,
+  ) {}
   @Post('/sign')
-  async create(@Body() createUserDto: CreateUsersDto): Promise<number> {
+  async create(
+    @Body() createUserDto: CreateUsersDto,
+  ): Promise<{ access_token: string }> {
     const user = await this.usersService.create(createUserDto);
-    const id = user.users_id;
-    return id;
+
+    const payload = { sub: user.users_id, username: user.name };
+    return {
+      access_token: await this.jwtService.signAsync(payload),
+    };
   }
   @Get('/getAll')
   @UseGuards(CookieGuard)
@@ -28,19 +38,26 @@ export class UsersController {
     return await this.usersService.getAll();
   }
   @Post(':log')
-  async logIn(@Body() { email, password }: CreateUsersDto): Promise<number> {
+  async logIn(
+    @Body() { email, password }: CreateUsersDto,
+  ): Promise<{ access_token: string }> {
     const emailSave: number = await this.usersService.getOneByCondition({
-      email: email,
+      email,
     });
     const passwordSave = await this.usersService.getOneByCondition({
-      password: password,
+      password,
     });
     const userRole = await this.usersService.getRole(emailSave);
+
     if (emailSave === passwordSave) {
       if (userRole === 'admin') {
-        return 8923238.2289127;
+        const payload = { sub: emailSave, role: userRole };
+        const access_token = await this.jwtService.signAsync(payload);
+        return { access_token };
       } else {
-        return emailSave;
+        const payload = { sub: emailSave };
+        const access_token = await this.jwtService.signAsync(payload);
+        return { access_token };
       }
     }
   }
@@ -48,13 +65,16 @@ export class UsersController {
   async getOneById(@Param('id', ParseIntPipe) id: number): Promise<number> {
     return await this.usersService.getOneByCondition({ user_id: id });
   }
-  // @Get('newOrder/:name')
-  // async newOrder(
-  //   @Param('name') name: string,
-  //   @Req() req: Request,
-  // ): Promise<Users> {
 
-  // }
+  @Get('/newOrder/:name')
+  async newOrder(
+    @Param('name') name: string,
+    @Req() req: Request,
+  ): Promise<Users> {
+    const id = req.cookies;
+    return this.usersService.newOrder(id, name);
+  }
+
   @Post(':id')
   async updateUser(
     @Param('id', ParseIntPipe) id: number,
