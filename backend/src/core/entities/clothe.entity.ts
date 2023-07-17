@@ -3,7 +3,7 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 @Entity()
 export class clothes {
   @PrimaryGeneratedColumn()
-  id: number;
+  product_id: number;
 
   @Column()
   name: string;
@@ -21,7 +21,7 @@ export class clothes {
   color: string;
 
   @Column()
-  size: number;
+  size: string;
 
   @Column()
   style: string;

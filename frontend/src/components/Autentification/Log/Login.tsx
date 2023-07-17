@@ -1,0 +1,19 @@
+import { FormComponent } from "../../FormComponent";
+import { IUser } from "../../../core/entity/IUser";
+import {  handleLog } from "../../../Server/userQuery";
+import { FormCard } from "../../Card";
+
+export const Login = () => {
+  return (
+    <FormCard>
+      <FormComponent
+        userInputProps={["email", "password"] as Array<keyof IUser>}
+        buttonName={"Log In" as string}
+        SendToServer={handleLog as (userInput: IUser) => Promise<void>}
+        productName={null}
+        nameToUpdate={null}
+
+      />
+    </FormCard>
+  );
+};
